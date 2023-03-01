@@ -1,22 +1,14 @@
 import React from 'react'
 import Todo from "./Todo";
+import {useSelector} from "react-redux";
 
-function TodoList({todos,checkTodo,deleteTodo}){
+function TodoList(){
+    const todos = useSelector( state => state.todoList)
     return (
         <div>
-            {todos.map(todo =>
-                <Todo
-                    key={todo.id}
-                    title={todo.title}
-                    checkTodo={checkTodo}
-                    deleteTodo={deleteTodo}
-                    id={todo.id}
-                    isCompleted={todo.isCompleted}
-                />
-            )}
+            {todos.map(todo => <Todo key={todo.id} todo={todo}/>)}
         </div>
     )
 
 }
-
 export default  TodoList;

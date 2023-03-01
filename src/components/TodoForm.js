@@ -1,13 +1,18 @@
-import React, {useState} from 'react'
+import React, {useRef} from 'react'
 import {Container, FormControl, TextField, Button} from "@mui/material";
+import {useDispatch} from 'react-redux'
+import {addAction} from '../actions/userActions'
 
-function TodoForm({addTodo}){
-    const [text,setText] = useState('');
+function TodoForm(){
+    const dispatch = useDispatch()
+    const textInputRef = useRef(null)
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        addTodo(text);
+        const title = textInputRef.current.value
+        dispatch(addAction(title));
     }
+
     return (
         <Container component='form' onSubmit={handleSubmit} maxWidth="sm">
                 <FormControl fullWidth={true}>
@@ -16,7 +21,7 @@ function TodoForm({addTodo}){
                         label="I will do this"
                         required={true}
                         style={{marginTop:10}}
-                        onChange={(e) => setText(e.target.value)}
+                        inputRef={textInputRef}
                     />
                     <Button variant="contained" type="submit" style={{marginTop:10}}>
                         Add to list
